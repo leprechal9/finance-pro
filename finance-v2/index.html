@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinancePro 2.0 | Ultra</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="user-profile">
+        <div class="avatar">JS</div>
+        <div><small>Bem-vindo</small><h2>Finance<span>Pro 2.0</span></h2></div>
+      </div>
+      <div id="update-banner" class="update-notification modal-hidden">
+    <span>Nova versão disponível!</span>
+    <button onclick="window.location.reload()">Atualizar Agora</button>
+</div>
+      <div class="header-actions">
+        <button class="config-btn" onclick="toggleQR()"><i class="fas fa-qrcode"></i></button>
+        <button class="export-btn" onclick="exportToWhatsApp()"><i class="fab fa-whatsapp"></i></button>
+        <button class="config-btn" onclick="clearAll()"><i class="fas fa-trash-alt"></i></button>
+      </div>
+      <button class="config-btn" onclick="forceUpdateCheck()" id="update-icon">
+  <i class="fas fa-sync-alt"></i>
+</button>
+    </header>
+
+    <div id="qr-modal" class="modal-overlay modal-hidden" onclick="toggleQR()">
+      <div class="modal qr-content" onclick="event.stopPropagation()">
+        <h3>Compartilhar App</h3>
+        <img id="qr-img" src="" alt="Gerando QR Code...">
+        <p><small>Aponte a câmera para instalar o app em outro celular</small></p>
+        <button class="btn-cancel" onclick="toggleQR()">Fechar</button>
+      </div>
+    </div>
+
+    <div class="balance-section">
+      <small>SALDO DISPONÍVEL</small>
+      <h1 id="balance">R$ 0,00</h1>
+    </div>
+
+    <div class="goal-section" onclick="setGoal()">
+      <div class="goal-header">
+        <small>Meta de Gastos (Mês)</small>
+        <small id="goal-percent">0%</small>
+      </div>
+      <div class="progress-bar"><div id="goal-fill" class="progress-fill"></div></div>
+    </div>
+
+    <div class="ai-assistant">
+      <div id="notif-bubble" class="chat-bubble">
+        <div class="bot-icon" id="notif-icon"><i class="fas fa-bell"></i></div>
+        <div class="bot-text">
+          <small id="notif-status">SISTEMA</small>
+          <p id="ai-message">Olá! Vamos organizar sua grana?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-chip active" onclick="filterBy('all')">Todos</button>
+      <button class="filter-chip" onclick="filterBy('💰 Salário')">💰</button>
+      <button class="filter-chip" onclick="filterBy('🍔 Alimentação')">🍔</button>
+      <button class="filter-chip" onclick="filterBy('🚗 Transporte')">🚗</button>
+      <button class="filter-chip" onclick="filterBy('🏠 Casa')">🏠</button>
+      <button class="filter-chip" onclick="filterBy('🎭 Lazer')">🎭</button>
+    </div>
+
+    <div class="action-grid">
+      <button class="action-btn income" onclick="openModal('income')"><i class="fas fa-plus"></i> Saldo</button>
+      <button class="action-btn expense" onclick="openModal('expense')"><i class="fas fa-minus"></i> Gasto</button>
+    </div>
+
+    <section class="history-section">
+      <ul id="transactions" class="timeline-list"></ul>
+    </section>
+
+    <div id="modal-overlay" class="modal-overlay modal-hidden">
+      <div class="modal">
+        <h3 id="modal-title">Nova Transação</h3>
+        <form id="transaction-form">
+          <input type="text" id="desc" placeholder="Descrição" required>
+          <select id="category" required>
+            <option value="" disabled selected>Categoria</option>
+            <option value="💰 Salário">💰 Salário</option>
+            <option value="🍔 Alimentação">🍔 Alimentação</option>
+            <option value="🚗 Transporte">🚗 Transporte</option>
+            <option value="🏠 Casa">🏠 Casa</option>
+            <option value="🎭 Lazer">🎭 Lazer</option>
+            <option value="✨ Outros">✨ Outros</option>
+          </select>
+          <input type="number" id="val" placeholder="Valor" step="0.01" required>
+          <div class="modal-actions">
+            <button type="button" onclick="closeModal()" class="btn-cancel">Voltar</button>
+            <button type="submit" id="btn-submit" class="btn-confirm">Confirmar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="main.js?v=11"></script>
+</body>
+</html>
