@@ -21,3 +21,15 @@ self.addEventListener('fetch', event => {
   event.respondWith(caches.match(event.request).then(res => res || fetch(event.request)));
 });
 
+self.addEventListener('fetch', event => {
+  // Se a URL do script tiver um "?" (versão), tenta buscar na internet primeiro
+  if (event.request.url.includes('?v=')) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(res => res || fetch(event.request))
+    );
+  }
+});
