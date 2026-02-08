@@ -1,0 +1,89 @@
+:root {
+  --primary: #6366f1;
+  --income: #10b981;
+  --expense: #ef4444;
+  --bg: #f8fafc;
+  --text-dark: #1e293b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { background: #000000; display: flex; justify-content: center; min-height: 100vh; -webkit-user-select: none; user-select: none; }
+
+#app { width: 100%; max-width: 480px; background: var(--bg); display: flex; flex-direction: column; min-height: 100vh; box-shadow: 0 0 50px rgba(0,0,0,0.1); }
+
+.app-header { padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; }
+.header-actions { display: flex; gap: 10px; }
+.avatar { width: 45px; height: 45px; background: var(--primary); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+.balance-section { padding: 10px 25px 25px; text-align: center; }
+.balance-section h1 { font-size: 2.8rem; color: var(--text-dark); letter-spacing: -1px; }
+
+.goal-section { padding: 0 25px 20px; cursor: pointer; }
+.goal-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; color: #64748b; }
+.progress-bar { background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden; }
+.progress-fill { background: var(--primary); width: 0%; height: 100%; transition: 0.6s ease; }
+
+.ai-assistant { padding: 0 25px 20px; }
+.chat-bubble { background: white; padding: 15px; border-radius: 18px; display: flex; gap: 12px; border-left: 5px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s; }
+
+.filter-bar { display: flex; gap: 10px; padding: 0 25px 20px; overflow-x: auto; scrollbar-width: none; }
+.filter-chip { padding: 8px 18px; background: white; border: 1px solid #e2e8f0; border-radius: 20px; cursor: pointer; white-space: nowrap; font-size: 0.85rem; }
+.filter-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 25px 25px; }
+.action-btn { border: none; padding: 18px; border-radius: 18px; color: white; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.action-btn:active { transform: scale(0.95); }
+.income { background: var(--income); }
+.expense { background: var(--expense); }
+
+.history-section { background: white; border-radius: 30px 30px 0 0; padding: 25px; flex-grow: 1; }
+.timeline-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9; }
+.category-icon { width: 42px; height: 42px; background: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+/* Modais */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-hidden { display: none !important; }
+.modal { background: white; padding: 30px; border-radius: 25px; width: 85%; max-width: 350px; }
+input, select { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 1rem; }
+.btn-confirm { width: 100%; padding: 15px; border: none; border-radius: 12px; color: white; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.btn-cancel { width: 100%; padding: 12px; border: none; background: #f1f5f9; border-radius: 12px; margin-top: 10px; cursor: pointer; }
+.config-btn, .export-btn { border: none; padding: 10px; border-radius: 10px; cursor: pointer; background: #f1f5f9; color: #64748b; }
+.export-btn { color: #10b981; }
+.qr-content img { width: 100%; border-radius: 15px; margin: 15px 0; }
+.val-in { color: var(--income); font-weight: bold; }
+.val-out { color: var(--expense); font-weight: bold; }
+
+.update-notification {
+    background: var(--primary);
+    color: white;
+    padding: 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9rem;
+    animation: slideDown 0.5s ease;
+}
+
+.update-notification button {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
