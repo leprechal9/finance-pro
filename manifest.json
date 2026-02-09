@@ -1,9 +1,10 @@
+
 {
-  "name": "FinancePro Ultra",
+  "name": "FinancePro VIP",
   "short_name": "FinancePro",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#f8fafc",
+  "background_color": "#020617",
   "theme_color": "#6366f1",
   "icons": [
     {
