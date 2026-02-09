@@ -1,16 +1,18 @@
-
 {
   "name": "FinancePro VIP",
-  "short_name": "FinancePro",
+  "short_name": "FinPro",
+  "description": "Gestão Financeira Premium",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#020617",
   "theme_color": "#6366f1",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/2489/2489756.png",
+      "src": "https://cdn-icons-png.flaticon.com/512/2933/2933116.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

@@ -4,9 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FinancePro VIP</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FinancePro">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2933/2933116.png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Registro do Service Worker (Motor do PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('PWA: Service Worker registrado com sucesso!', reg.scope))
+                .catch(err => console.log('PWA: Falha ao registrar Service Worker:', err));
+            });
+        }
+    </script>
 </head>
 <body class="dark-mode">
 
@@ -90,7 +110,7 @@
             <div id="tela-entrada" class="tela hidden">
                 <h2>Novo Ganho 💰</h2>
                 <div class="card-form">
-                    <input type="text" id="d-ent" placeholder="O que recebeu?">
+                    <input type="text" id="d-ent" placeholder="Descrição do ganho">
                     <input type="number" id="v-ent" placeholder="Valor R$" step="0.01">
                     <select id="cat-ent"></select>
                     <button onclick="salvar('entrada')" class="btn-confirm btn-ganho">Confirmar Receita</button>
@@ -100,7 +120,7 @@
             <div id="tela-saida" class="tela hidden">
                 <h2>Novo Gasto 💸</h2>
                 <div class="card-form">
-                    <input type="text" id="d-sai" placeholder="O que pagou?">
+                    <input type="text" id="d-sai" placeholder="Descrição do gasto">
                     <input type="number" id="v-sai" placeholder="Valor R$" step="0.01">
                     <select id="cat-sai"></select>
                     <button onclick="salvar('saida')" class="btn-confirm btn-gasto">Confirmar Despesa</button>
@@ -109,40 +129,41 @@
 
             <div id="tela-metas" class="tela hidden">
                 <h2>🎯 Metas VIP</h2>
-                <div class="card-form">
-                    <input type="text" id="meta-nome" placeholder="Ex: Reserva de Emergência">
-                    <input type="number" id="meta-valor" placeholder="Valor Objetivo (R$)">
-                    <input type="number" id="meta-ja-tenho" placeholder="Já tenho (R$)" value="">
-                    <button onclick="salvarMeta()" class="btn-confirm" style="background: var(--primary);">CRIAR META</button>
-                </div>
                 <div id="lista-metas"></div>
+                <div class="card-form">
+                    <input type="text" id="meta-nome" placeholder="Ex: Viagem 2026">
+                    <input type="number" id="meta-valor" placeholder="Valor Objetivo (R$)">
+                    <button onclick="salvarMeta()" class="btn-confirm" style="background: var(--primary);">CRIAR NOVA META</button>
+                </div>
             </div>
 
             <div id="tela-lembretes" class="tela hidden">
                 <h2>⏰ Contas a Pagar</h2>
+                <div id="lista-lembretes"></div>
                 <div class="card-form">
-                    <input type="text" id="lembrete-titulo" placeholder="Ex: Internet">
+                    <input type="text" id="lembrete-titulo" placeholder="Ex: Aluguel">
                     <input type="date" id="lembrete-data">
                     <button onclick="salvarLembrete()" class="btn-confirm" style="background: var(--primary);">AGENDAR CONTA</button>
                 </div>
-                <div id="lista-lembretes"></div>
             </div>
 
             <div id="tela-config" class="tela hidden">
                 <h2>Ajustes ⚙️</h2>
                 <div class="card-form">
-                    <h3>Categorias</h3>
+                    <h3>Categorias Personalizadas</h3>
                     <div style="display:flex; gap:8px; margin-bottom:10px">
                         <input type="text" id="nova-cat-emoji" placeholder="🚀" style="width:60px; text-align:center">
-                        <input type="text" id="nova-cat-nome" placeholder="Nome">
+                        <input type="text" id="nova-cat-nome" placeholder="Nome da Categoria">
                     </div>
                     <button onclick="addCategoria()" class="btn-confirm" style="background:var(--primary)">Adicionar</button>
                 </div>
                 <div id="lista-categorias"></div>
-                <button onclick="limparTudo()" class="btn-danger">Limpar Tudo</button>
+                <button onclick="limparTudo()" class="btn-danger">Limpar Tudo (Reset de Fábrica)</button>
             </div>
+
         </div>
     </main>
+
     <script src="script.js"></script>
 </body>
 </html>
